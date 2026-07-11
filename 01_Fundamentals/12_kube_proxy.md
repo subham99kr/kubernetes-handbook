@@ -196,20 +196,14 @@ even if Pods change.
 
 ```mermaid
 flowchart LR
+    A[Client]
+    B[Service]
+    C[kube-proxy Rules]
+    D[Backend Pods]
 
-Client
-
-↓
-
-Service
-
-↓
-
-kube-proxy Rules
-
-↓
-
-Backend Pods
+    A --> B
+    B --> C
+    C --> D
 ```
 
 Notice:
