@@ -101,43 +101,32 @@ Let's begin with the complete picture.
 ```mermaid
 flowchart TB
 
-Developer
+    Developer --> kubectl
+    kubectl --> APIServer["API Server"]
 
-↓
+    APIServer --> Scheduler
+    APIServer --> ControllerManager["Controller Manager"]
+    APIServer --> etcd
 
-kubectl
+    Scheduler --> WorkerNode1["Worker Node 1"]
+    Scheduler --> WorkerNode2["Worker Node 2"]
+    Scheduler --> WorkerNode3["Worker Node 3"]
 
-↓
+    WorkerNode1 --> kubelet1["kubelet"]
+    WorkerNode2 --> kubelet2["kubelet"]
+    WorkerNode3 --> kubelet3["kubelet"]
 
-API Server
+    kubelet1 --> ContainerRuntime1["Container Runtime"]
+    kubelet2 --> ContainerRuntime2["Container Runtime"]
+    kubelet3 --> ContainerRuntime3["Container Runtime"]
 
-↓
+    ContainerRuntime1 --> Pod1["Pod"]
+    ContainerRuntime2 --> Pod2["Pod"]
+    ContainerRuntime3 --> Pod3["Pod"]
 
-Control Plane
-
-Control Plane --> Scheduler
-
-Control Plane --> Controller Manager
-
-Control Plane --> etcd
-
-Scheduler --> Worker Node 1
-
-Scheduler --> Worker Node 2
-
-Scheduler --> Worker Node 3
-
-Worker Node 1 --> kubelet
-
-Worker Node 2 --> kubelet
-
-Worker Node 3 --> kubelet
-
-kubelet --> Container Runtime
-
-Container Runtime --> Pod
-
-Pod --> Container
+    Pod1 --> Container1["Container"]
+    Pod2 --> Container2["Container"]
+    Pod3 --> Container3["Container"]
 ```
 
 At first glance,
